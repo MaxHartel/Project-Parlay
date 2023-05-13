@@ -4,6 +4,7 @@ from configurations import configurations
 from outcome import outcome
 from game import game
 import itertools
+import time
 
 from prettytable import PrettyTable
 
@@ -16,7 +17,7 @@ db_ops = db_operations("allGameHistory.db")
 allConfigs = []
 bestConfigsBF = []
 bestConfigsSA = []
-
+SAruntime = []
 
 
 
@@ -140,7 +141,7 @@ def bestConfig(configList,outcomeList):
     bestConfigsSA = []
 
     while len(bestConfigsSA) < numParlays:
-        bestConfigsSA.append(outputs_SA.outputs_simulated_annealing(configX, outcomeList, bestConfigsSA, 0.1))
+        bestConfigsSA.append(outputs_SA.outputs_simulated_annealing(configX, outcomeList, bestConfigsSA))
 
     bestConfigs_BF = configurations.sort(bestConfigsBF)
     bestConfigs_SA = configurations.sort(bestConfigsSA)
@@ -178,18 +179,18 @@ startScreen()
 #By the nature of parlays, including the same pick in multiple configurations in the same grouping would make it liable for the entire grouping to fail with a single unexpected loss
 #Therefore a high "String Factor" would increase the total risk for the grouping, but shouldn't neccicarily be a dealbreaker if stringing a pick adequately improves total profit possibility.
 
-numParlays = input("How many parlays would you like to bet on?")
+numParlays = input("How many parlays would you like to bet on?\n")
 while numParlays.isdigit() == False:
-            print("Number of games must be a number. Try again")
-            numParlays = input("How many games would you like to bet on?")
-numGamesPool = input("From How many games would you like us to consider before we calculate best?")
+            print("Number of games must be a number. Try again\n")
+            numParlays = input("How many games would you like to bet on?\n")
+numGamesPool = input("From How many games would you like us to consider before we calculate best?\n")
 while numGamesPool.isdigit() == False:
-            print("Number of games to consider must be a number. Try again")
-            numGamesPool = input("From How many games would you like us to consider before we calculate best?")
-totalUserCapital = input("How much capital would you like to bet($)?")
+            print("Number of games to consider must be a number. Try again\n")
+            numGamesPool = input("From How many games would you like us to consider before we calculate best?\n")
+totalUserCapital = input("How much capital would you like to bet($)?\n")
 while totalUserCapital.isdigit() == False:
-            print("Captial must be a number. Try again")
-            totalUserCapital = input("How much capital would you like to bet($)?")
+            print("Captial must be a number. Try again\n")
+            totalUserCapital = input("How much capital would you like to bet($)?\n")
 
 numParlays = int(numParlays)
 totalUserCapital = int(totalUserCapital)
@@ -214,10 +215,13 @@ for gameInstance in gameList:
     outcomeList.extend(gameInstance.outcomes)
     
 
-
+start_time = time.time()
 permutations(numGamesPool, outcomeList)
 bestConfig(allConfigs, outcomeList)
-# search_by_games()
+end_time = time.time()
+runtime = end_time - start_time
+
+print("\n Brute-Force Runtime: (s)" + str(runtime))
 
 
 

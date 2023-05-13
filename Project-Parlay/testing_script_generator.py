@@ -3,14 +3,14 @@ import random
 # Open a file for writing
 with open("testing_script.txt", "w") as file:
     
-    rInt = random.randint(1, 5)
+    rInt = random.randint(2, 3)
     # Write some text to the file
 
     #How many parlays would you like to bet on?
     file.write(str(rInt)+ "\n")
 
     #From How many games would you like us to consider before we calculate best?
-    numGames = rInt + 5
+    numGames = rInt + 8
     file.write(str(numGames)+ "\n")
 
     #How much capital would you like to bet($)

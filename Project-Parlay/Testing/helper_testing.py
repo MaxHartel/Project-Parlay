@@ -1,5 +1,6 @@
 from prettytable import PrettyTable
 from configurations_testing import configurations
+import pickle
 
 class helper():
     # function parses a string and converts to appropriate type
@@ -97,6 +98,41 @@ class helper():
         
         return gameIdList
     
+    @staticmethod
+    def hypoParlayPrint(arr):
+
+        print("--------------------")
+        print("BinWidth: " + str(arr.binWidth))
+        print("hpID: " + str(arr.hpID))
+        print("total Theoretical Profit: " + str(arr.T_total_profit))
+        print("Viability: " + str(arr.T_hitMissRatio))
+        print("Profit Happening Percentage: " + str(arr.T_profitFailRatio))
+
+        arr = arr.binsList
+
+        for row in arr:
+            for item in row:
+                print(item, end=" ")
+            print()
+        print("--------------------")
+        
+        print()
+
+    @staticmethod
+    def serializeParlayList(parlayList, fileName):
+    # Serialize list of objects to binary file
+        with open(fileName, 'wb') as f:
+            pickle.dump(parlayList, f)
+
+    @staticmethod
+    def deserializeParlayList(fileName):
+        # Load list of objects from binary file
+        parlayList = []
+
+        with open(fileName, 'rb') as f:
+            parlayList = pickle.load(f)
+
+        return parlayList
     
-    
-    
+
+

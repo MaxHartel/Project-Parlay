@@ -123,62 +123,62 @@ def calculate_runtime(func, configX, outcomeList, bestConfigsSA, T_0):
 def bestConfig(configList,outcomeList):
       
     #Brute force evaluate all configs and then select best ones:
-    # while len(bestConfigsBF) < numParlays:
-    #     maxValue = 0
-    #     best = 0
+    while len(bestConfigsBF) < numParlays:
+        maxValue = 0
+        best = 0
 
-    #     for x in configList:
+        for x in configList:
 
-    #         if x.value > maxValue:
+            if x.value > maxValue:
                 
-    #             maxValue = x.value
-    #             best = x
+                maxValue = x.value
+                best = x
 
-    #     if best not in bestConfigsBF:
+        if best not in bestConfigsBF:
     
-    #         bestConfigsBF.append(best)
-    #         configList.remove(best)
+            bestConfigsBF.append(best)
+            configList.remove(best)
 
     #Dynamic best config finder using simulated annueling
     configX = configurations([])
     bestConfigsSA = []
 
     runtime = 0
-    # starting_thresh = outputs_SA.getThresh()
+    starting_thresh = outputs_SA.getThresh()
 
     while len(bestConfigsSA) < numParlays:
         SA_runtime = calculate_runtime(outputs_SA.outputs_simulated_annealing, configX, outcomeList, bestConfigsSA, outputs_SA.getThresh())
         bestConfigsSA.append(SA_runtime[0])
         runtime += SA_runtime[1]
 
-    print(f"{runtime:.4f}")
-    # print(f"{starting_thresh:.3f}")
+    print("Runtime (SA): " + f"{runtime:.4f}")
+    print("SA StartingThreshold: " + f"{starting_thresh:.3f}")
 
-    # SAresults = configGroup(bestConfigsSA)
-    # BFresults = configGroup(bestConfigsBF)
-    # crossover = configGroup.crossover(BFresults, SAresults)
+    SAresults = configGroup(bestConfigsSA)
+    BFresults = configGroup(bestConfigsBF)
+    crossover = configGroup.crossover(BFresults, SAresults)
 
-    # numSameConfigs = crossover[0]
+    numSameConfigs = crossover[0]
 
-    # SA_Offset = configurations.multiOffset(crossover[2],crossover[3])
+    SA_Offset = configurations.multiOffset(crossover[2],crossover[3])
 
-    # if(SA_Offset[1] == 0):
-    #     SA_Correctness = 1
+    if(SA_Offset[1] == 0):
+        SA_Correctness = 1
 
-    # elif((numSameConfigs / numParlays) == 0):
-    #     SA_Correctness = (1 -  (float(SA_Offset[0]) / float(SA_Offset[1]))) 
-    # else:
-    #     SA_Correctness = ((1 -  (float(SA_Offset[0]) / float(SA_Offset[1]))) * (1 - (numSameConfigs / numParlays))) + (numSameConfigs / numParlays)
+    elif((numSameConfigs / numParlays) == 0):
+        SA_Correctness = (1 -  (float(SA_Offset[0]) / float(SA_Offset[1]))) 
+    else:
+        SA_Correctness = ((1 -  (float(SA_Offset[0]) / float(SA_Offset[1]))) * (1 - (numSameConfigs / numParlays))) + (numSameConfigs / numParlays)
 
-    # print(f"{SA_Correctness:.5f}")
-    # print(str(SA_Offset[0]))
-    # print(str(numSameConfigs))
+    print("SA Correctness: " + f"{SA_Correctness:.5f}")
+    print("SA Combined Offset From Best Parlay Group: " + str(SA_Offset[0]))
+    print("Number of exact matches betweeen Parlays in SA Parlay group and best possible: " + str(numSameConfigs))
 
-    # print("\n Best Parlays to Bet (BF):\n")
-    # helper.config_print(bestConfigsBF)
+    print("\n Best Parlays to Bet (BF):\n")
+    helper.config_print(bestConfigsBF)
 
-    # print("\n Best Parlays to Bet (SA):\n")
-    # helper.config_print(bestConfigsSA)
+    print("\n Best Parlays to Bet (SA):\n")
+    helper.config_print(bestConfigsSA)
 
     
 
@@ -198,9 +198,9 @@ startScreen()
 #By the nature of parlays, including the same pick in multiple configurations in the same grouping would make it liable for the entire grouping to fail with a single unexpected loss
 #Therefore a high "String Factor" would increase the total risk for the grouping, but shouldn't neccicarily be a dealbreaker if stringing a pick adequately improves total profit possibility.
 numParlays = input()
-print(numParlays)
+print("Number of Parlays:" + numParlays)
 numGamesPool = input()
-print(numGamesPool)
+print("Number of Games:" + numGamesPool)
 totalUserCapital = input()
 
 numParlays = int(numParlays)
@@ -226,9 +226,11 @@ for gameInstance in gameList:
     
 
 
-#permutations(numGamesPool, outcomeList)
+permutations(numGamesPool, outcomeList)
 bestConfig(allConfigs, outcomeList)
 # search_by_games()
+print("\nYour Options..\n")
+helper.config_print(allConfigs)
 
 
 #deconstruct at end

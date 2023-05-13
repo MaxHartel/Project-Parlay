@@ -22,7 +22,8 @@ class configurations:
     # Profit/risk are different representations of the same stat, so their ratio will always be 10
     #config.value = config.theoreticalProfit * config.profitChance
     def value(config):
-        config.value = (1 - config.profitChance)
+        #config.value = (1 - config.profitChance)
+        config.value = 1 - abs(config.decimalOdds - 3.15)
         
         return config.value
     

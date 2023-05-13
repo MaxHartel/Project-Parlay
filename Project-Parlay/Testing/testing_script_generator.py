@@ -6,8 +6,10 @@ def main():
 
     with open("testing_script.txt", "w") as file:
         
-        rInt = random.randint(2, 5)
-        gInt = random.randint(rInt, 16)
+        #rInt = random.randint(2, 5)
+        rInt = 3
+        #gInt = random.randint(rInt, 10)
+        gInt = 10
         # Write some text to the file
 
         #How many parlays would you like to bet on?

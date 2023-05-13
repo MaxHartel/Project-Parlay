@@ -33,7 +33,7 @@ scroll_bar.pack(side=tk.RIGHT, fill="y", expand=False)
 # Place the text widget to the left side
 text_widget.pack(side=tk.LEFT, fill="both", expand=True)
  
-long_text = open("ZampleOutput_1.0.txt", 'r').read()
+long_text = open("results/output.txt", 'r').read()
  
 # Insert text into the text widget
 text_widget.insert(tk.END, long_text)
