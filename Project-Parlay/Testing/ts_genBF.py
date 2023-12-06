@@ -1,13 +1,16 @@
 import random
 from datetime import datetime, timedelta
+import math
 
 def main():
     # Open a file for writing
 
     with open("testing_scriptBF.txt", "w") as file:
         
-        rInt = random.randint(2, 5)
-        gInt = random.randint(rInt, 13)
+        #rInt = random.randint(2, 5)
+        gInt = 9
+        rInt = math.factorial(gInt) / (math.factorial(4) * math.factorial(gInt-4))
+        #gInt = random.randint(rInt, 13)
         # Write some text to the file
 
         #How many parlays would you like to bet on?
