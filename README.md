@@ -1,4 +1,4 @@
-# Algorithim Analysis Final Project: Project Parlay
+# Project Parlay
 
 ## How to Run
 * Open a terminal inside the Project_parlay Folder
