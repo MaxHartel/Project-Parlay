@@ -80,7 +80,7 @@ for idx, row in df.iterrows():
 
     field = STAT_FIELD.get(stat_type)
     if not field:
-        print(f"⏭ Skipping {row['player_name']}: unsupported stat '{row['stat_type']}'")
+        print(f"Skipping {row['player_name']}: unsupported stat '{row['stat_type']}'")
         continue
 
     actual = None
@@ -94,7 +94,7 @@ for idx, row in df.iterrows():
         df.at[idx, "actual_statistic"] = actual
         print(f"{row['player_name']} on {date_obj.date()} → actual_statistic = {actual}")
     else:
-        print(f"⚠️ No stat found for {row['player_name']} on {date_obj.date()}")
+        print(f"No stat found for {row['player_name']} on {date_obj.date()}")
 
     time.sleep(0.5)  # polite pacing
 
