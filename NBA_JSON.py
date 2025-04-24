@@ -96,7 +96,7 @@ for idx, row in df.iterrows():
     else:
         print(f"No stat found for {row['player_name']} on {date_obj.date()}")
 
-    time.sleep(0.5)  # polite pacing
+    time.sleep(1)
 
 df.to_excel(FILE_PATH, sheet_name=SHEET_NAME, index=False)
 print("Done")
